@@ -35,3 +35,6 @@ def to_workplace():
     )
 
     print(response.text)
+    
+if __name__ == '__main__':
+    app.run(debug=True)
