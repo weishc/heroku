@@ -1,1 +1,1 @@
-app_test:app –preload
+app:app –preload
