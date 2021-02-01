@@ -4,6 +4,9 @@ import json
 
 app = Flask(__name__)
 
+@app.route('/')
+    def hello():
+        return "hello"
 
 @app.route('/', methods=['POST'])
 def respond():
