@@ -40,7 +40,6 @@ def respond():
         for wpid in send_wpids:
             send_msg(wpid)
 
-    print (json.dumps(request.json, sort_keys=True, indent=4, separators=(",", ": ")))
     return Response(status=200)
 
 
