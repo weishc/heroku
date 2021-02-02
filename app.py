@@ -14,6 +14,7 @@ def index():
 def respond():
     action_type = request.json['action']['type']
     if action_type == 'commentCard':
+        print (json.dumps(request.json, sort_keys=True, indent=4, separators=(",", ": ")))
         to_workplace()
     return Response(status=200)
 
