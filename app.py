@@ -19,6 +19,7 @@ def respond():
         for i in staff_db:
             if i['name'] in receive_staff:
                 send_msg(i['id'])
+    print (json.dumps(request.json, sort_keys=True, indent=4, separators=(",", ": ")))
     return Response(status=200)
 
 
