@@ -25,8 +25,12 @@ def respond():
     if action_type == 'commentCard':
         card_id = request_data['card']['id']
         card_members_id = get_card_members_id(card_id)
-        card_members_name = [get_fullname(i) for i in card_members_id]
+        card_members_name = []
+        
+        for i in card_members_id:
+            card_members_name.append(get_fullname(i))
         send_wpids = []
+
         for staff in wp_staff_db:
             mention = '@renpic' + staff['name'].split('(')[1].strip(')')
             if mention in request_data['text']:
@@ -34,7 +38,6 @@ def respond():
             if staff['name'].split(' (')[0] in card_members_name:
                 send_wpids.append(staff['id'])
         send_wpids = list(set(send_wpids))
-
 
         for wpid in send_wpids:
             send_msg(wpid)
