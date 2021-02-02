@@ -24,9 +24,9 @@ def respond():
 
     if action_type == 'commentCard':
         card_id = request_data['card']['id']
-        card_members_id = get_card_members_id(card_id)
+        card_members_id = json.loads(get_card_members_id(card_id))
         card_members_name = []
-        
+
         for i in card_members_id:
             card_members_name.append(get_fullname(i))
         send_wpids = []
