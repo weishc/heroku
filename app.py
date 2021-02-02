@@ -14,7 +14,7 @@ def index():
 def respond():
     action_type = request.json['action']['type']
     if action_type == 'commentCard':
-        comment_creator = request.json['action']['"memberCreator']['fullName']
+        comment_creator = request.json['action']['memberCreator']['fullName']
         receive_staff = ['test man','Wei-Xiang Chen (wc)',comment_creator]
         for i in staff_db:
             if i['name'] in receive_staff:
