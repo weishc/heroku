@@ -3,7 +3,6 @@ import requests
 import json
 
 app = Flask(__name__)
-
 wp_staff_db = [{'name': 'test man (yc)', 'id': '100061038601811'}, {'name': 'Wei-Xiang Chen (wc)', 'id': '100063124216900'}]
 headers = {"Accept": "application/json"}
 query = {
@@ -18,7 +17,6 @@ def index():
 
 @app.route('/', methods=['POST'])
 def respond():
-
     action_type = request.json['action']['type']
     request_data = request.json['action']['data']
 
@@ -47,7 +45,7 @@ def respond():
 
 
 def send_msg(id):
-
+    request_data = request.json['action']['data']
     proj_name = request_data['list']['name']
     shot_name = request_data['card']['name']
     short_link = request_data['card']['shortLink']
