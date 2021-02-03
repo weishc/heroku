@@ -15,12 +15,6 @@ query = {
 }
 tid_wpid = {}
 id_db = {}
-for t in get_trello_staff():
-    for w in get_wp_staff():
-        if t['fullName'] in w['name']:
-            tid_wpid[t['id']] = w['id']
-            id_db[ti['username']] = {
-                'wp_id': w['id'], 'tr_id': t['id']}
 
 def get_trello_staff():
     url = "https://api.trello.com/1/organizations/test84104475/members"
@@ -42,6 +36,13 @@ def get_wp_staff():
         headers=wp_headers
     )
     return json.loads(response.text)['data']
+
+for t in get_trello_staff():
+    for w in get_wp_staff():
+        if t['fullName'] in w['name']:
+            tid_wpid[t['id']] = w['id']
+            id_db[t['username']] = {
+                'wp_id': w['id'], 'tr_id': t['id']}
 
 
 @app.route('/')
