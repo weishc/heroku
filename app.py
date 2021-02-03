@@ -14,36 +14,8 @@ query = {
     'key': 'e16b5d87b76092e1854b698a1cc9f465',
     'token': '1594c0a47da4689feb849ef6444572de271cd4ad664a5c46ac33ff31973733c7'
 }
-tid_wpid = {}
-id_db = {}
-
-def get_trello_staff():
-    url = "https://api.trello.com/1/organizations/test84104475/members"
-
-    response = requests.request(
-        "GET",
-        url,
-        headers=tr_headers,
-        params=query
-    )
-
-    return json.loads(response.text)
-
-def get_wp_staff():
-    url = 'https://graph.facebook.com/company/organization_members'
-    response = requests.request(
-        'GET',
-        url,
-        headers=wp_headers
-    )
-    return json.loads(response.text)['data']
-
-for t in get_trello_staff():
-    for w in get_wp_staff():
-        if t['fullName'] in w['name']:
-            tid_wpid[t['id']] = w['id']
-            id_db[t['username']] = {
-                'wp_id': w['id'], 'tr_id': t['id']}
+tid_wpid = {'6013adbeb2e35865db709850': '100063124216900'}
+id_db = {'renpiczz': {'wp_id': '100063124216900', 'trello_id': '6013adbeb2e35865db709850'}}
 
 
 @app.route('/')
