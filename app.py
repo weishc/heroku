@@ -27,6 +27,27 @@ for t in get_trello_staff():
 def index():
     return 'Last update:2021/02/03 10:27'
 
+def get_trello_staff():
+    url = "https://api.trello.com/1/organizations/test84104475/members"
+
+    response = requests.request(
+        "GET",
+        url,
+        headers=tr_headers,
+        params=query
+    )
+
+    return json.loads(response.text)
+
+def get_wp_staff():
+    url = 'https://graph.facebook.com/company/organization_members'
+    response = requests.request(
+        'GET',
+        url,
+        headers=wp_headers
+    )
+    return json.loads(response.text)['data']
+
 
 @app.route('/', methods=['POST'])
 def respond():
@@ -93,27 +114,6 @@ def get_unread_list(id):
     )
     notif_list = json.loads(response.text)
     return [i['data']['card']['id'] for i in notif_list]
-
-def get_trello_staff():
-    url = "https://api.trello.com/1/organizations/test84104475/members"
-
-    response = requests.request(
-        "GET",
-        url,
-        headers=tr_headers,
-        params=query
-    )
-
-    return json.loads(response.text)
-
-def get_wp_staff():
-    url = 'https://graph.facebook.com/company/organization_members'
-    response = requests.request(
-        'GET',
-        url,
-        headers=wp_headers
-    )
-    return json.loads(response.text)['data']
 
 if __name__ == '__main__':
     app.run(debug=True)
