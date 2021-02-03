@@ -22,11 +22,6 @@ for t in get_trello_staff():
             id_db[ti['username']] = {
                 'wp_id': w['id'], 'tr_id': t['id']}
 
-
-@app.route('/')
-def index():
-    return 'Last update:2021/02/03 10:27'
-
 def get_trello_staff():
     url = "https://api.trello.com/1/organizations/test84104475/members"
 
@@ -47,6 +42,11 @@ def get_wp_staff():
         headers=wp_headers
     )
     return json.loads(response.text)['data']
+
+
+@app.route('/')
+def index():
+    return 'Last update:2021/02/03 10:27'
 
 
 @app.route('/', methods=['POST'])
