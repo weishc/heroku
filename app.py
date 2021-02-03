@@ -15,7 +15,7 @@ query = {
     'token': '1594c0a47da4689feb849ef6444572de271cd4ad664a5c46ac33ff31973733c7'
 }
 tid_wpid = {'6013adbeb2e35865db709850': '100063124216900'}
-id_db = {'renpiczz': {'wp_id': '100063124216900', 'trello_id': '6013adbeb2e35865db709850'}}
+id_db = {'renpiczz': {'wp_id': '100063124216900', 'tr_id': '6013adbeb2e35865db709850'}}
 
 
 @app.route('/')
