@@ -25,28 +25,31 @@ for t in get_trello_staff():
 
 @app.route('/')
 def index():
-    return '2021/02/02 16:27 update'
+    return 'Last update:2021/02/03 10:27'
 
 
 @app.route('/', methods=['POST'])
 def respond():
-	req_act = request.json['action']
+    req_act = request.json['action']
     act_type = req_act['type']
     req_data = req_act['data']
     card = req_data['card']
     if act_type == 'commentCard':
-    	commenter = req_act['memberCreator']['username']
-    	shot_user = card['name'].split('] [')[2]
-    	pattern = re.compile(r'@[a-z]+')
-		mention_list = pattern.findall(req_data['text'])
+        commenter = req_act['memberCreator']['username']
+        shot_user = card['name'].split('] [')[2]
+        pattern = re.compile(r'@[a-z]+')
+        mention_list = pattern.findall(req_data['text'])
         card_members_id = json.loads(get_card_members_id(card['id']))
         if commenter.split('renpic')[1] == shot_user:
-        	card_members_id.remove(id_db[commenter]['tr_id'])
+            card_members_id.remove(id_db[commenter]['tr_id'])
         for i in card_members_id:
-        	send_wp_ids.append(tid_wpid[i])
+            if card['id'] not in get_unread_list(i):
+                send_wp_ids.append(tid_wpid[i])
         if mention_list != []:
-        	for user in mention_list:
-        		send_wp_ids.append(id_db[user.strip('@')]['wp_id'])
+            for user in mention_list:
+                tr_id = id_db[user.strip('@')]['tr_id']
+                if card['id'] not in get_unread_list(trid):
+                    send_wp_ids.append(id_db[user.strip('@')]['wp_id'])
         send_wpids = list(set(send_wpids))
         for wpid in send_wpids:
             send_msg(wpid)
@@ -58,7 +61,7 @@ def send_msg(id):
     shot_name = req_data['card']['name']
     short_link = req_data['card']['shortLink']
     text = proj_name + r'\n' + shot_name + r'\n⚠️有新留言\nhttps://trello.com/c/' + short_link
-    data ='{"recipient":{"id":"' + id + '"},"message":{"text":"'+ text +'"}}'
+    data = '{"recipient":{"id":"' + id + '"},"message":{"text":"' + text +'"}}'
     response = requests.request(
         'POST',
         'https://graph.facebook.com/me/messages',
@@ -77,7 +80,7 @@ def get_card_members_id(card_id):
     )
     return response.text
 
-def get_unread_list(id)
+def get_unread_list(id):
     url = "https://api.trello.com/1/members/" + id + "/notifications/"
     query['read_filter'] = 'unread'
     query['fields'] = 'data'
