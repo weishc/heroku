@@ -73,7 +73,7 @@ def get_card_members_id(card_id):
        headers=tr_headers,
        params=query,
     )
-    return response.text
+    return json.loads(response.text)
 
 def get_unread_list(id):
     url = "https://api.trello.com/1/members/" + id + "/notifications/"
