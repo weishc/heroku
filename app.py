@@ -20,7 +20,7 @@ id_db = {'renpiczz': {'wp_id': '100063124216900', 'tr_id': '6013adbeb2e35865db70
 
 @app.route('/')
 def index():
-    return 'Last update:2021/02/03 10:27'
+    return 'Last update:2021/02/03 12:27'
 
 
 @app.route('/', methods=['POST'])
@@ -34,7 +34,7 @@ def respond():
         shot_user = card['name'].split('] [')[2]
         pattern = re.compile(r'@[a-z]+')
         mention_list = pattern.findall(req_data['text'])
-        card_members_id = json.loads(get_card_members_id(card['id']))
+        card_members_id = (get_card_members_id(card['id']))
         if commenter.split('renpic')[1] == shot_user:
             card_members_id.remove(id_db[commenter]['tr_id'])
         for i in card_members_id:
